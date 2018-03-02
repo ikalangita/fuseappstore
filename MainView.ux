@@ -1,0 +1,99 @@
+<App>
+   <JavaScript>
+      var Observable = require('FuseJS/Observable');
+      var places = require('model');
+      var current = Observable();
+      var inDetailsMode = current.map(function(x){
+      	return !!x;
+      });
+
+      module.exports = {
+         places: places.map(function(item, index){
+      		item.pos = index === 0 ? "20" : "10";
+
+      		return item;
+      	}),
+         current: current,
+      	inDetailsMode: inDetailsMode
+      }
+
+   </JavaScript>
+   <iOS.StatusBarConfig Style="Light"  IsVisible="False"  />
+   <Grid Rows="auto,1*">
+      <Panel ux:Class="appStore" InDetailsMode="false">
+         <Panel ux:Dependency="detailsImagePanel" />
+
+         <!-- properties -->
+         <bool ux:Property="InDetailsMode" />
+         <string ux:Property="Title" />
+         <string ux:Property="Image"/>
+         <string ux:Property="pos" />
+
+         <!-- bloc type -->
+         <Panel ux:Name="bloc" Margin="20, {pos}, 20, 10" >
+            <Rectangle Height="350" ux:Name="rectangleRoundedCorner" CornerRadius="8" >
+               <DropShadow ux:Name="panelShadow" Distance="3" Spread="0.06" Color="#0003" Angle="90" />
+               <!-- The Content -->
+               <StackPanel ux:Name="titleWrapper" Margin="20" Alignment="Left">
+                  <Text Color="#fff" TextWrapping="Wrap" Font="Medium" FontSize="15" Value="{ReadProperty Title}" />
+                  <Text Width="200" Margin="0,10,0,0" Color="#fff" TextWrapping="Wrap" Font="Medium" FontSize="35" Value="The art of impossible" />
+               </StackPanel>
+               <ImageFill StretchMode="UniformToFill" File="{ReadProperty Image}" />
+            </Rectangle>
+         </Panel>
+
+         <!-- animation -->
+         <WhileTrue Value="{ReadProperty InDetailsMode}">
+            <Move   Easing="CubicInOut" Target="bloc" Vector="1" RelativeTo="PositionOffset" RelativeNode="detailsImagePanel" Duration="0.6" />
+            <Resize Easing="CubicInOut" Target="bloc" Vector="1" RelativeTo="Size" RelativeNode="detailsImagePanel" Duration="0.6" />
+            <Change Easing="CubicInOut" rectangleRoundedCorner.CornerRadius="0" Duration="0.6" />
+            <Change Easing="CubicInOut" rectangleRoundedCorner.Height="450" Delay="0.2" Duration="0.6" />
+            <BringToFront />
+         </WhileTrue>
+
+      </Panel>
+
+      <!-- cible placeholder -->
+      <Panel Row="0">
+         <Grid Rows="1*,1*" >
+            <Panel ux:Name="detailsImagePanel" ColumnSpan="2" Row="0" Column="0"/>
+            <Panel Row="1" ColumnSpan="2">
+            </Panel>
+         </Grid>
+      </Panel>
+
+      <!-- render bloc class -->
+      <Panel Row="1">
+         <PageControl ux:Name="citiesPageControl" ClipToBounds="false">
+            <WhileFalse Value="{inDetailsMode}">
+					<Change sw.UserScroll="true" />
+				</WhileFalse>
+            <ScrollView ux:Name="sw" ClipToBounds="false" UserScroll="false">
+               <StackPanel ItemSpacing="0">
+                  <Selection MinCount="0" MaxCount="1" Value="{Write current}"/>
+                  <Each Items="{places}">
+                     <appStore
+                        ux:Name="topItem"
+                        Title="{name}"
+                        Image="{image}"
+                        detailsImagePanel="detailsImagePanel"
+                        pos="{pos}"
+                        >
+                        <Selectable Value="{id}" />
+                        <WhileSelected>
+                           <Change topItem.InDetailsMode="true" />
+                        </WhileSelected>
+                        <Tapped>
+									<!-- perhaps just toggle when clicking while not in details mode -->
+									<ToggleSelection />
+								</Tapped>
+                     </appStore>
+                  </Each>
+               </StackPanel>
+            </ScrollView>
+         </PageControl>
+      </Panel>
+
+   </Grid>
+
+</App>
