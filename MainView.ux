@@ -20,11 +20,14 @@
    </JavaScript>
    <iOS.StatusBarConfig Style="Light"  IsVisible="False"  />
 
+   <Font File="Assets/fonts/Roboto-Black.ttf" ux:Global="RobotoBold" />
+
    <Panel ux:Name="detailsImagePanel" />
 
    <!--Grid Rows="1*"-->
    <!-- cible placeholder -->
-   <Panel ux:Class="appStore" InDetailsMode="false">
+   <Panel ux:Class="appStore" Background="#eee" InDetailsMode="false">
+
       <Panel ux:Dependency="detailsImagePanel" />
 
       <!-- properties -->
@@ -35,10 +38,10 @@
       <string ux:Property="facts" />
       <!-- bloc type -->
       <Panel ux:Name="bloc" Margin="20, {pos}, 20, 10" >
-         <ScrollView ux:Name="test" UserScroll="false">
+         <ScrollView ux:Name="contentScroll" UserScroll="false" Background="#eee" ClipToBounds="false">
             <StackPanel>
                <Rectangle Height="350" ux:Name="rectangleRoundedCorner" CornerRadius="8" >
-                  <DropShadow ux:Name="panelShadow" Distance="3" Spread="0.06" Color="#0003" Angle="90" />
+                  <!--DropShadow ux:Name="panelShadow" Distance="4" Spread="1" Color="#0002" Angle="190" /-->
                   <!-- The Content -->
                   <StackPanel ux:Name="titleWrapper" Margin="20" Alignment="Left">
                      <Text Color="#fff" TextWrapping="Wrap" Font="Medium" FontSize="15" Value="{ReadProperty Title}" />
@@ -49,10 +52,13 @@
 
                <!-- show only content if in details mode -->
                <WhileTrue Value="{ReadProperty InDetailsMode}">
-                  <Panel ux:Name="itemContent" Background="#000" Height="0" Opacity="0">
-                     <Text Value="{facts}" TextWrapping="Wrap"/>
+                  <Panel Background="#fff" ux:Name="itemContent" Opacity="0">
+                     <Text Value="{facts}" TextWrapping="Wrap" />
                   </Panel>
                   <Change Easing="CubicInOut" itemContent.Opacity="1" Duration="0.6" />
+                  <Change Easing="CubicInOut" itemContent.Height="200" />
+                  <Change Easing="CubicInOut" itemContent.Padding="20" Duration="0.6" />
+                  <Change contentScroll.UserScroll="true" />
                </WhileTrue>
 
             </StackPanel>
@@ -61,13 +67,10 @@
 
       <!-- animation -->
       <WhileTrue Value="{ReadProperty InDetailsMode}">
-         <Change test.UserScroll="true" />
-         <Change test.Background="#fff" />
          <Move   Easing="CubicInOut" Target="bloc" Vector="1" RelativeTo="PositionOffset" RelativeNode="detailsImagePanel" Duration="0.6" />
          <Resize Easing="CubicInOut" Target="bloc" Vector="1" RelativeTo="Size" RelativeNode="detailsImagePanel" Duration="0.6" />
          <Change Easing="CubicInOut" rectangleRoundedCorner.CornerRadius="0" Duration="0.6" />
-         <Change Easing="CubicInOut" panelShadow.Color="#fff" Duration="0.6" />
-         <Change Easing="CubicInOut" Duration="0.5" itemContent.Margin="20" />
+         <!--Change Easing="CubicInOut" panelShadow.Color="#fff" Duration="0.6" /-->
          <BringToFront />
       </WhileTrue>
    </Panel>
@@ -95,9 +98,9 @@
                         <Change topItem.InDetailsMode="true" />
                      </WhileSelected>
                      <Tapped>
-                        <!-- perhaps just toggle when clicking while not in details mode -->
                         <ToggleSelection />
                      </Tapped>
+
                   </appStore>
                </Each>
             </StackPanel>

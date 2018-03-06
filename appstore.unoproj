@@ -6,7 +6,7 @@
     "Fuse.PushNotifications",
   ],
   "Includes": [
-    "Assets/*.jpg:Bundle",
+    "Assets/images/*.jpg:Bundle",
     "model.js:Bundle",
     "*",
   ]

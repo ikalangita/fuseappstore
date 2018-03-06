@@ -6,7 +6,7 @@ module.exports = Observable(
 		name: 'Ancient Bristlecone Pine Forest',
 		country: 'United States',
 		color: '#4F99EE',
-		image: "Assets/event1.jpg",
+		image: "Assets/images/event1.jpg",
 		numbers: [
 			{ title: 'Elevation', fact: '3,410 m' },
 			{ title: 'Area', fact: '113 km2' }
@@ -17,7 +17,7 @@ module.exports = Observable(
 		name: 'Iceland',
 		country: 'Iceland',
 		color: '#7D83D2',
-		image: "Assets/event2.jpg",
+		image: "Assets/images/event2.jpg",
 		numbers: [
 			{ title: 'Population', fact: '323,002 (2013)' },
 			{ title: 'Currency', fact: 'Icelandic króna'}
@@ -29,7 +29,7 @@ module.exports = Observable(
 		name: 'Monte Altissimo di Nago',
 		country: 'Italy',
 		color: '#4F99EE',
-		image: "Assets/event3.jpg",
+		image: "Assets/images/event3.jpg",
 		numbers: [
 			{ title: 'Elevation', fact: '2,074 m' },
 			{ title: 'Province', fact: 'Trentino' }
@@ -41,7 +41,7 @@ module.exports = Observable(
 		name: 'Setagaya, Tokyo',
 		country: 'Japan',
 		color: '#4F99EE',
-		image: "Assets/event4.jpg",
+		image: "Assets/images/event4.jpg",
 		numbers: [
 			{ title: 'Population', fact: '890,927' },
 			{ title: 'Area', fact: '58.08 km2' }
@@ -53,7 +53,7 @@ module.exports = Observable(
 		name: 'Provo Canyon',
 		country: 'USA',
 		color: '#4F99EE',
-		image: "Assets/event5.jpg",
+		image: "Assets/images/event5.jpg",
 		numbers: [
 			{ title: 'From', fact: 'Orem' },
 			{ title: 'To', fact: 'Heber City' }
@@ -65,7 +65,7 @@ module.exports = Observable(
 		name: 'Ciucaș Peak',
 		country: 'Romania',
 		color: '#4F99EE',
-		image: "Assets/event6.jpg",
+		image: "Assets/images/event6.jpg",
 		numbers: [
 			{ title: 'Elevation', fact: '1,954 m' },
 			{ title: 'Parent range', fact: 'Ciucaş Mountains' }
